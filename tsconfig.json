@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@config": ["config"],
+      "@controllers/*": ["src/controllers/*"],
+      "@models/*": ["src/models/*"],
+      "@services/*": ["src/services/*"],
+      "@utils/*": ["utils/*"],
+      "@entities/*": ["src/entities/*"],
+      "@routes/*": ["src/routes/*"],
+      "@exceptions/*": ["exceptions/*"],
+      "@interfaces/*": ["interfaces/*"],
+    }
+  },
+  "lib": ["es2015"],
+  "include": ["src/**/*.ts", "src/**/*.json",
+    ".env.example"
+  ],
+  "exclude": ["node_modules", "src/http", "src/logs"]
+}
