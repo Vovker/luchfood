@@ -12,9 +12,9 @@ export class NewsEntity extends BaseEntity{
     description: string;
 
     @Column({nullable: false})
-    shortcut: string;
+    body: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     img: string;
 
     @Column({nullable: false})
