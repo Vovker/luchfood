@@ -1,6 +1,6 @@
 import {IsString} from "class-validator";
 
-class CreateNewsDto {
+class NewsDto {
 
   @IsString()
   title: string;
@@ -15,4 +15,4 @@ class CreateNewsDto {
   img: string;
 }
 
-export default CreateNewsDto;
+export default NewsDto;

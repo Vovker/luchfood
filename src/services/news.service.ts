@@ -1,6 +1,6 @@
 import {NewsEntity} from "@/entities/news.entity";
 import {MoreThan} from "typeorm";
-import CreateNewsDto from "@/dtos/news/CreateNews.dto";
+import NewsDto from "@/dtos/news/news.dto";
 import {base64Save} from "@utils/base64Save";
 import {HttpException} from "@exceptions/HttpException";
 
@@ -16,7 +16,7 @@ class NewsService {
     });
   }
 
-  public async createNews(data: CreateNewsDto): Promise<NewsEntity> {
+  public async createNews(data: NewsDto): Promise<NewsEntity> {
     const news = new NewsEntity();
     news.title = data.title;
     news.description = data.description;
@@ -41,7 +41,7 @@ class NewsService {
     return news;
   }
 
-  public async updateNews(id: string, data: CreateNewsDto): Promise<NewsEntity> {
+  public async updateNews(id: string, data: NewsDto): Promise<NewsEntity> {
     const news = await NewsEntity.findOne({
       where: {
         id: Number(id)
