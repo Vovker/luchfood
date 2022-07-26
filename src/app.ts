@@ -5,6 +5,7 @@ import {NODE_ENV, PORT} from "@config";
 import {DataSource} from "typeorm";
 import {dbConnection} from "@/database";
 import errorMiddleware from "@/middlewares/error.middleware";
+import bodyParser from "body-parser";
 
 class App {
   public app: express.Application;
@@ -16,12 +17,13 @@ class App {
     this.env = NODE_ENV || 'development';
     this.port = PORT || 5000;
 
+    this.app.use(express.json({limit: '50mb'}));
+    this.app.use(express.urlencoded({ extended: true}));
     this.initializeRoutes(routes);
     this.initializeErrorHandling();
   }
 
   public async listen () {
-    console.log(PORT);
     this.env !== 'test' && await App.connectToDatabase();
     this.app.listen(this.port, () => {
       logger.info(`=================================`);
@@ -33,7 +35,7 @@ class App {
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
-      this.app.get(route.path, route.router);
+      this.app.use('/', route.router);
     });
   }
 
@@ -41,7 +43,6 @@ class App {
     const dataSource = new DataSource(dbConnection);
     try {
       await dataSource.initialize();
-      console.log(dataSource)
       console.log('Successfully Connected to DB');
     } catch (error: any) {
       throw new Error(`Couldn't connect to the DB: ${error}`);
