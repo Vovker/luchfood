@@ -2,6 +2,7 @@ import {NewsEntity} from "@/entities/news.entity";
 import {MoreThan} from "typeorm";
 import CreateNewsDto from "@/dtos/news/CreateNews.dto";
 import {base64Save} from "@utils/base64Save";
+import {HttpException} from "@exceptions/HttpException";
 
 
 class NewsService {
@@ -25,12 +26,19 @@ class NewsService {
   }
 
   public async getNewsById(id: string): Promise<NewsEntity> {
-    return await NewsEntity.findOne({
+
+    const news = await NewsEntity.findOne({
       select: ['id', 'title', 'description', 'img', 'created_at'],
       where: {
         id: Number(id)
       }
     });
+
+    if(!news) {
+      throw new HttpException(404, 'News not found');
+    }
+
+    return news;
   }
 
   public async updateNews(id: string, data: CreateNewsDto): Promise<NewsEntity> {
@@ -39,10 +47,16 @@ class NewsService {
         id: Number(id)
       }
     });
+
+    if(!news) {
+      throw new HttpException(404, 'News not found');
+    }
+
     news.title = data.title;
     news.description = data.description;
     news.body = data.body;
     news.img = base64Save(data.img);
+
     return await news.save();
   }
 
@@ -52,6 +66,11 @@ class NewsService {
         id: Number(id)
       }
     });
+
+    if(!news) {
+      throw new HttpException(404, 'News not found');
+    }
+
     return await news.remove();
   }
 }
