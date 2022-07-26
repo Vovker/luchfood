@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express";
 import NewsService from "../services/news.service";
-import CreateNewsDto from "@/dtos/news/CreateNews.dto";
+import NewsDto from "@/dtos/news/news.dto";
 
 export class NewsController {
 
@@ -12,7 +12,7 @@ export class NewsController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const data: CreateNewsDto = req.body;
+      const data: NewsDto = req.body;
       const result = await this.service.createNews(data);
       res.status(200).json({data: result});
     } catch (error) {
@@ -56,7 +56,7 @@ export class NewsController {
   ): Promise<void> => {
     try {
       const id = req.params.id as string;
-      const data: CreateNewsDto = req.body;
+      const data: NewsDto = req.body;
       const result = await this.service.updateNews(id, data);
       res.status(200).json({ data: result });
     } catch (error) {
