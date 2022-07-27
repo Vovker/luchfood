@@ -1,11 +1,11 @@
 import {Routes} from "@interfaces/routes.interface";
 import {Router} from "express";
-import {NewsController} from "@/controllers/news.controller";
+import {EventController} from "@/controllers/event.controller";
 
-export class NewsRoute implements Routes {
-  public path = '/news';
+export class EventRoute implements Routes{
+  public path = "/event";
   public router = Router();
-  public newsController = new NewsController();
+  public eventController = new EventController();
 
   constructor() {
     this.initializeRoutes();
@@ -15,28 +15,27 @@ export class NewsRoute implements Routes {
 
     this.router.get(
       `${this.path}/:amount/:lastId`,
-      this.newsController.getNews
-    );
-
-    this.router.post(
-      `${this.path}`,
-      this.newsController.createNews
-    );
-
-    this.router.put(
-      `${this.path}/:id`,
-      this.newsController.updateNews
-    );
-
-    this.router.delete(
-      `${this.path}/:id`,
-      this.newsController.deleteNews
+      this.eventController.getEvents
     );
 
     this.router.get(
       `${this.path}/:id`,
-      this.newsController.getNewsById
+      this.eventController.getEventById
+    )
+
+    this.router.post(
+      `${this.path}`,
+      this.eventController.createEvent
     );
 
+    this.router.put(
+      `${this.path}/:id`,
+      this.eventController.updateEvent
+    );
+
+    this.router.delete(
+      `${this.path}/:id`,
+      this.eventController.deleteEvent
+    );
   }
 }

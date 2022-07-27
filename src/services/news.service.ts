@@ -6,12 +6,17 @@ import {HttpException} from "@exceptions/HttpException";
 
 
 class NewsService {
-  public async getNews(amount: string, lastId: string = '0' ): Promise<NewsEntity[]> {
+  public async getNews(amount: number, lastId: number ): Promise<NewsEntity[]> {
+
+    if(!amount) {
+      throw new HttpException(400, 'Bad request');
+    }
+
     return await NewsEntity.find({
       select: ['id', 'title', 'description', 'img', 'created_at'],
-      take: Number(amount),
+      take: amount,
       where: {
-        id: MoreThan(Number(lastId))
+        id: MoreThan(lastId)
       }
     });
   }

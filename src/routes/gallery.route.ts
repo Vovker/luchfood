@@ -14,7 +14,7 @@ export class GalleryRoute implements Routes{
   private initializeRoutes() {
 
     this.router.get(
-      `${this.path}`,
+      `${this.path}/:amount/:lastId`,
       this.galleryController.getGallery
     );
 

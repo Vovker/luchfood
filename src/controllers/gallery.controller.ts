@@ -7,8 +7,8 @@ export class GalleryController {
 
   public getGallery = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const amount = req.query.amount as string;
-      const lastId = req.query.lastId as string;
+      const amount = Number(req.params.amount);
+      const lastId = Number(req.params.lastId);
       const result = await this.galleryService.getGallery(amount, lastId);
       res.status(200).json({ data: result });
     } catch (error) {
@@ -38,7 +38,7 @@ export class GalleryController {
 
   public updateGallery = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = req.params.id;
+      const id = Number(req.params.id);
       const data:GalleryDto = req.body;
       const result = await this.galleryService.updateGallery(id, data);
       res.status(200).json({ data: result });
