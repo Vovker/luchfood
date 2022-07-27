@@ -5,12 +5,17 @@ import GalleryDto from "@/dtos/gallery/gallery.dto";
 import {HttpException} from "@exceptions/HttpException";
 
 class GalleryService {
-  public async getGallery(amount: string, lastId: string): Promise<GalleryEntity[]> {
+  public async getGallery(amount: number, lastId: number): Promise<GalleryEntity[]> {
+
+    if(!amount) {
+      throw new HttpException(400, 'Bad request');
+    }
+
     return await GalleryEntity.find({
       select: ['id', 'img', 'created_at'],
-      take: Number(amount),
+      take: amount,
       where: {
-        id: MoreThan(Number(lastId))
+        id: MoreThan(lastId)
       }
     });
   }
@@ -36,10 +41,10 @@ class GalleryService {
     return gallery;
   }
 
-  public async updateGallery(id: string, data: GalleryDto): Promise<GalleryEntity> {
+  public async updateGallery(id: number, data: GalleryDto): Promise<GalleryEntity> {
     const gallery = await GalleryEntity.findOne({
       where: {
-        id: Number(id)
+        id: id
       }
     });
 

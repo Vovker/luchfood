@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {EventTypeEntity} from "@/entities/eventType.entity";
 
 @Entity()
@@ -18,7 +18,7 @@ export class EventEntity extends BaseEntity{
   @Column({nullable: false})
   date: Date;
 
-  @OneToOne(() => EventTypeEntity, eventType => eventType.id)
+  @ManyToOne(() => EventTypeEntity, eventType => eventType.id)
   @JoinColumn()
   type: EventTypeEntity;
 }
