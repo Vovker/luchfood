@@ -5,7 +5,6 @@ import {NODE_ENV, PORT} from "@config";
 import {DataSource} from "typeorm";
 import {dbConnection} from "@/database";
 import errorMiddleware from "@/middlewares/error.middleware";
-import bodyParser from "body-parser";
 
 class App {
   public app: express.Application;
@@ -17,6 +16,10 @@ class App {
     this.env = NODE_ENV || 'development';
     this.port = PORT || 5000;
 
+    this.app.use(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      next();
+    });
     this.app.use(express.json({limit: '50mb'}));
     this.app.use(express.urlencoded({ extended: true}));
     this.initializeRoutes(routes);

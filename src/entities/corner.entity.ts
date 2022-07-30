@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {KitchenTypeEntity} from "@/entities/kitchenType.entity";
 
 @Entity()
@@ -24,7 +24,7 @@ export class CornerEntity extends BaseEntity {
   @Column({nullable: true})
   instagram: string;
 
-  @OneToOne(() => KitchenTypeEntity, kitchenType => kitchenType.corner)
+  @ManyToOne(() => KitchenTypeEntity, kitchenType => kitchenType.corner)
   @JoinColumn()
   kitchenType: KitchenTypeEntity;
 
