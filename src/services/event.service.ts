@@ -3,7 +3,7 @@ import {MoreThan} from "typeorm";
 import EventDto from "@/dtos/event/event.dto";
 import {HttpException} from "@exceptions/HttpException";
 import {base64Save} from "@utils/base64Save";
-import {EventTypeEntity} from "../entities/eventType.entity";
+import {EventTypeEntity} from "@/entities/eventType.entity";
 
 export class EventService {
   public async getEvents(amount: number, lastId: number): Promise<EventEntity[]> {
@@ -17,7 +17,7 @@ export class EventService {
     }
 
      return await EventEntity.find({
-       select: ['id', 'name', 'img', 'date'],
+       select: ['id', 'name', 'description' ,'img', 'date'],
        take: amount,
        where: {
          id: MoreThan(lastId)
