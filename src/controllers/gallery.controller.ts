@@ -8,8 +8,8 @@ export class GalleryController {
   public getGallery = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const amount = Number(req.params.amount);
-      const lastId = Number(req.params.lastId);
-      const result = await this.galleryService.getGallery(amount, lastId);
+      const pageId = Number(req.params.pageId);
+      const result = await this.galleryService.getGallery(amount, pageId);
       res.status(200).json({ data: result });
     } catch (error) {
       next(error);

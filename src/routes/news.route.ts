@@ -14,7 +14,7 @@ export class NewsRoute implements Routes {
   private initializeRoutes() {
 
     this.router.get(
-      `${this.path}/:amount/:lastId`,
+      `${this.path}/:amount/:pageId`,
       this.newsController.getNews
     );
 

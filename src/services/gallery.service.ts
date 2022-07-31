@@ -1,11 +1,10 @@
 import {GalleryEntity} from "@/entities/gallery.entity";
-import {MoreThan} from "typeorm";
 import {base64Save} from "@utils/base64Save";
 import GalleryDto from "@/dtos/gallery/gallery.dto";
 import {HttpException} from "@exceptions/HttpException";
 
 class GalleryService {
-  public async getGallery(amount: number, lastId: number): Promise<GalleryEntity[]> {
+  public async getGallery(amount: number, pageId: number): Promise<GalleryEntity[]> {
 
     if(!amount) {
       throw new HttpException(400, 'Bad request');
@@ -14,8 +13,9 @@ class GalleryService {
     return await GalleryEntity.find({
       select: ['id', 'img', 'created_at'],
       take: amount,
-      where: {
-        id: MoreThan(lastId)
+      skip: pageId * amount,
+      order: {
+        created_at: 'DESC'
       }
     });
   }
