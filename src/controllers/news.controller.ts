@@ -27,8 +27,8 @@ export class NewsController {
   ): Promise<void> => {
     try {
       const amount = Number(req.params.amount);
-      const lastId = Number(req.params.lastId);
-      const result = await this.service.getNews(amount, lastId);
+      const pageId = Number(req.params.pageId);
+      const result = await this.service.getNews(amount, pageId);
       res.status(200).json({ data: result });
     } catch (error) {
       next(error);

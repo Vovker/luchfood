@@ -1,12 +1,11 @@
 import {NewsEntity} from "@/entities/news.entity";
-import {MoreThan} from "typeorm";
 import NewsDto from "@/dtos/news/news.dto";
 import {base64Save} from "@utils/base64Save";
 import {HttpException} from "@exceptions/HttpException";
 
 
 class NewsService {
-  public async getNews(amount: number, lastId: number ): Promise<NewsEntity[]> {
+  public async getNews(amount: number, pageId: number ): Promise<NewsEntity[]> {
 
     if(!amount) {
       throw new HttpException(400, 'Bad request');
@@ -15,8 +14,9 @@ class NewsService {
     return await NewsEntity.find({
       select: ['id', 'title', 'description', 'img', 'created_at'],
       take: amount,
-      where: {
-        id: MoreThan(lastId)
+      skip: pageId * amount,
+      order: {
+        created_at: 'DESC'
       }
     });
   }
@@ -33,7 +33,7 @@ class NewsService {
   public async getNewsById(id: string): Promise<NewsEntity> {
 
     const news = await NewsEntity.findOne({
-      select: ['id', 'title', 'description', 'img', 'created_at'],
+      select: ['id', 'title', 'description', 'img', 'body', 'created_at'],
       where: {
         id: Number(id)
       }
