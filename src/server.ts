@@ -4,13 +4,17 @@ import {GalleryRoute} from "./routes/gallery.route";
 import {EventTypeRoute} from "@/routes/eventType.route";
 import {EventRoute} from "@/routes/event.route";
 import {KitchenTypeRoute} from "@/routes/kitchenType.route";
+import {CornerRoute} from "@/routes/corner.route";
+import {MenuCategoryRoute} from "@/routes/menuCategory.route";
 
 const app = new App([
   new NewsRoute(),
   new GalleryRoute(),
   new EventTypeRoute(),
   new EventRoute(),
-  new KitchenTypeRoute()
+  new KitchenTypeRoute(),
+  new CornerRoute(),
+  new MenuCategoryRoute()
 ]);
 
 app.listen();

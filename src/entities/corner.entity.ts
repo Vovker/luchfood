@@ -1,5 +1,7 @@
-import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {KitchenTypeEntity} from "@/entities/kitchenType.entity";
+import {MenuEntity} from "@/entities/menu.entity";
+import {MenuCategoryEntity} from "@/entities/menuCategory.entity";
 
 @Entity()
 export class CornerEntity extends BaseEntity {
@@ -8,9 +10,6 @@ export class CornerEntity extends BaseEntity {
 
   @Column({nullable: false})
   name: string;
-
-  @Column({nullable: false})
-  slogan: string;
 
   @Column({nullable: false})
   description: string;
@@ -28,4 +27,6 @@ export class CornerEntity extends BaseEntity {
   @JoinColumn()
   kitchenType: KitchenTypeEntity;
 
+  @OneToMany(() => MenuCategoryEntity, menuCategory => menuCategory.corner)
+  menuCategory: MenuEntity;
 }
