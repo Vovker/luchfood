@@ -6,6 +6,7 @@ import {EventRoute} from "@/routes/event.route";
 import {KitchenTypeRoute} from "@/routes/kitchenType.route";
 import {CornerRoute} from "@/routes/corner.route";
 import {MenuCategoryRoute} from "@/routes/menuCategory.route";
+import {MenuRoute} from "@/routes/menu.route";
 
 const app = new App([
   new NewsRoute(),
@@ -14,7 +15,8 @@ const app = new App([
   new EventRoute(),
   new KitchenTypeRoute(),
   new CornerRoute(),
-  new MenuCategoryRoute()
+  new MenuCategoryRoute(),
+  new MenuRoute()
 ]);
 
 app.listen();

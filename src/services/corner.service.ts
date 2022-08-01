@@ -10,11 +10,10 @@ export class CornerService {
   }
 
   public async getCornerById(id: number): Promise<CornerEntity> {
-    const corner = CornerEntity.findOne({
-      where: {
-        id: id
-      }
-    });
+    const corner = await CornerEntity.createQueryBuilder('corner')
+      .leftJoinAndSelect('corner.kitchenType', 'kitchenType')
+      .where('corner.id = :id', {id: id})
+      .getOne();
 
     if(!corner) {
       throw new HttpException(404, 'Corner not found');
