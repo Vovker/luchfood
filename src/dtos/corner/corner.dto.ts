@@ -11,6 +11,9 @@ class CornerDto {
   logo: string;
 
   @IsString()
+  mainImage: string;
+
+  @IsString()
   address: string;
 
   @IsString()

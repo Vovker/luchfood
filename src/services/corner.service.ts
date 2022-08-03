@@ -6,7 +6,9 @@ import {HttpException} from "@exceptions/HttpException";
 
 export class CornerService {
   public async getCorners(): Promise<CornerEntity[]> {
-    return await CornerEntity.find();
+    return await CornerEntity.createQueryBuilder('corner')
+      .leftJoinAndSelect('corner.kitchenType', 'kitchenType')
+      .getMany();
   }
 
   public async getCornerById(id: number): Promise<CornerEntity> {
@@ -34,6 +36,7 @@ export class CornerService {
     corner.name = data.name;
     corner.description = data.description;
     corner.logo = base64Save(data.logo);
+    corner.mainImage = base64Save(data.mainImage);
     corner.address = data.address;
     corner.instagram = data.instagram;
     corner.kitchenType = kitchenType;
@@ -61,6 +64,7 @@ export class CornerService {
       corner.name = data.name;
       corner.description = data.description;
       corner.logo = base64Save(data.logo);
+      corner.mainImage = base64Save(data.mainImage);
       corner.address = data.address;
       corner.instagram = data.instagram;
       corner.kitchenType = kitchenType;

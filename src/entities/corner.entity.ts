@@ -18,6 +18,9 @@ export class CornerEntity extends BaseEntity {
   logo: string;
 
   @Column({nullable: false})
+  mainImage: string;
+
+  @Column({nullable: false})
   address: string;
 
   @Column({nullable: true})
