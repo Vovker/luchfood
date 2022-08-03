@@ -9,6 +9,9 @@ class MenuDto {
   @IsNumber()
   price: number;
 
+  @IsNumber()
+  weight: number;
+
   @IsNotEmpty()
   @IsNumber()
   menuCategoryId: number;

@@ -1,11 +1,13 @@
 import {Routes} from "@interfaces/routes.interface";
 import {Router} from "express";
 import {EventController} from "@/controllers/event.controller";
+import {AuthMiddleware} from "@/middlewares/auth.middleware";
 
 export class EventRoute implements Routes{
   public path = "/event";
   public router = Router();
   public eventController = new EventController();
+  public authMiddleware: AuthMiddleware = new AuthMiddleware();
 
   constructor() {
     this.initializeRoutes();
@@ -25,16 +27,19 @@ export class EventRoute implements Routes{
 
     this.router.post(
       `${this.path}`,
+      this.authMiddleware.authenticateJWT,
       this.eventController.createEvent
     );
 
     this.router.put(
       `${this.path}/:id`,
+      this.authMiddleware.authenticateJWT,
       this.eventController.updateEvent
     );
 
     this.router.delete(
       `${this.path}/:id`,
+      this.authMiddleware.authenticateJWT,
       this.eventController.deleteEvent
     );
   }

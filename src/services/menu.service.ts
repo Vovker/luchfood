@@ -63,6 +63,7 @@ class MenuService {
     const menu = new MenuEntity();
     menu.name = data.name;
     menu.price = data.price;
+    menu.weight = data.weight;
     menu.menuCategory = menuCategory;
     return await menu.save();
   }
@@ -79,6 +80,7 @@ class MenuService {
     }
 
     menu.name = data.name;
+    menu.weight = data.weight;
     menu.price = data.price;
     return await menu.save();
   }
