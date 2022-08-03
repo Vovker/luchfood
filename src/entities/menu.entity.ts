@@ -12,6 +12,9 @@ export class MenuEntity extends BaseEntity {
   @Column({nullable: false})
   price: number;
 
+  @Column({nullable: true})
+  weight: number;
+
   @ManyToOne(() => MenuCategoryEntity, menuCategory => menuCategory.id)
   @JoinColumn()
   menuCategory: MenuCategoryEntity;
