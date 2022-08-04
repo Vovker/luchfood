@@ -20,7 +20,13 @@ class App {
     this.app.use(function(req, res, next) {
       next();
     });
-    this.app.use(cors());
+    const corsOptions ={
+      origin:'*',
+      credentials:true,
+      optionSuccessStatus:200,
+    }
+
+    this.app.use(cors(corsOptions));
     this.app.use(express.json({limit: '50mb'}));
     this.app.use(express.urlencoded({ extended: true}));
     this.initializeRoutes(routes);
