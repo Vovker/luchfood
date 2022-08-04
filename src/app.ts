@@ -5,6 +5,7 @@ import {NODE_ENV, PORT} from "@config";
 import {DataSource} from "typeorm";
 import {dbConnection} from "@/database";
 import errorMiddleware from "@/middlewares/error.middleware";
+import cors from "cors";
 
 class App {
   public app: express.Application;
@@ -17,11 +18,9 @@ class App {
     this.port = PORT || 5000;
 
     this.app.use(function(req, res, next) {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-      res.header('Access-Control-Allow-Headers', 'Content-Type');
       next();
     });
+    this.app.use(cors());
     this.app.use(express.json({limit: '50mb'}));
     this.app.use(express.urlencoded({ extended: true}));
     this.initializeRoutes(routes);
