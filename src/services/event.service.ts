@@ -1,26 +1,26 @@
 import {EventEntity} from "@/entities/event.entity";
-import {MoreThan} from "typeorm";
 import EventDto from "@/dtos/event/event.dto";
 import {HttpException} from "@exceptions/HttpException";
 import {base64Save} from "@utils/base64Save";
-import {EventTypeEntity} from "../entities/eventType.entity";
+import {EventTypeEntity} from "@/entities/eventType.entity";
 
 export class EventService {
-  public async getEvents(amount: number, lastId: number): Promise<EventEntity[]> {
+  public async getEvents(amount: number, pageId: number): Promise<EventEntity[]> {
 
     if(!amount) {
       throw new HttpException(400, 'Bad request');
     }
 
-    if(!lastId) {
-      lastId = 0;
+    if(!pageId) {
+      pageId = 0;
     }
 
      return await EventEntity.find({
        select: ['id', 'name', 'img', 'date'],
        take: amount,
-       where: {
-         id: MoreThan(lastId)
+       skip: pageId * amount,
+       order: {
+         id: 'DESC'
        },
        relations: ['type']
      });

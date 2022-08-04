@@ -12,8 +12,8 @@ export class EventController {
   ): Promise<void> => {
     try {
       const amount = Number(req.params.amount);
-      const lastId = Number(req.params.lastId);
-      const result = await this.eventService.getEvents(amount, lastId);
+      const pageId = Number(req.params.pageId);
+      const result = await this.eventService.getEvents(amount, pageId);
       res.status(200).json({ data: result });
     } catch (error) {
       next(error);
