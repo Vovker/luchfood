@@ -78,7 +78,8 @@ export class EventService {
 
     event.name = data.name;
     event.description = data.description;
-    event.img = base64Save(data.img);
+    if(data.img)
+      event.img = base64Save(data.img);
     event.date = data.date;
     event.type = eventType;
 
