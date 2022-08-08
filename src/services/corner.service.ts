@@ -63,8 +63,10 @@ export class CornerService {
 
       corner.name = data.name;
       corner.description = data.description;
-      corner.logo = base64Save(data.logo);
-      corner.mainImage = base64Save(data.mainImage);
+      if(data.logo)
+        corner.logo = base64Save(data.logo);
+      if(data.mainImage)
+        corner.mainImage = base64Save(data.mainImage);
       corner.address = data.address;
       corner.instagram = data.instagram;
       corner.kitchenType = kitchenType;

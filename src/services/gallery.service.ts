@@ -52,7 +52,8 @@ class GalleryService {
       throw new HttpException(404, 'Gallery not found');
     }
 
-    gallery.img = base64Save(data.img);
+    if(data.img)
+      gallery.img = base64Save(data.img);
 
     return await gallery.save();
   }
