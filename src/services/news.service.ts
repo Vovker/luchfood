@@ -60,8 +60,9 @@ class NewsService {
     news.title = data.title;
     news.description = data.description;
     news.body = data.body;
-    news.img = base64Save(data.img);
 
+    if(data.img)
+      news.img = base64Save(data.img);
     return await news.save();
   }
 
