@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon",
     "lint:fix": "eslint --fix src/**/*.ts",
-    "start": "tsc && node dist/app.js",
+    "start": "tsc && node -r tsconfig-paths/register -r ts-node/register dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
